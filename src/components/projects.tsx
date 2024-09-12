@@ -11,7 +11,7 @@ import {
     CardDescription,
     CardContent
 } from '~/components/ui/card'
-import { Button } from './ui/button'
+import { Button } from '~/components/ui/button'
 
 export default function Projects() {
     return (
