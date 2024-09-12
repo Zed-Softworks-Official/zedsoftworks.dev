@@ -1,4 +1,6 @@
 import '~/styles/globals.css'
+import { ThemeProvider } from 'next-themes'
+
 import localFont from 'next/font/local'
 
 const codePro = localFont({
@@ -24,7 +26,16 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en" className={`${codePro.className}`}>
-            <body>{children}</body>
+            <body>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="dark"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    {children}
+                </ThemeProvider>
+            </body>
         </html>
     )
 }
