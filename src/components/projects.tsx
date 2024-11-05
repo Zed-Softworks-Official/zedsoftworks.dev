@@ -3,7 +3,7 @@
 import Link from 'next/link'
 
 import { motion } from 'framer-motion'
-import { Code, Palette, ExternalLink } from 'lucide-react'
+import { Palette, ExternalLink } from 'lucide-react'
 import {
     Card,
     CardHeader,
@@ -15,18 +15,12 @@ import { Button } from '~/components/ui/button'
 
 export default function Projects() {
     return (
-        <div className="container mx-auto grid gap-12 md:grid-cols-2">
+        <div className="container mx-auto flex items-center justify-center">
             <ProjectCard
                 title="Nemu"
                 icon={<Palette className="h-10 w-10 text-gray-900 dark:text-white" />}
                 url="https://nemu.art"
                 description="A commission-based SaaS marketplace connecting artists with clients, streamlining the creative process."
-            />
-            <ProjectCard
-                title="Spikey"
-                url="https://github.com/Zed-Softworks-Official/spikey"
-                icon={<Code className="h-10 w-10 text-gray-900 dark:text-white" />}
-                description="A powerful framework for Elgato Stream Deck, empowering creators with custom integrations and workflows."
             />
         </div>
     )

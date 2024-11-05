@@ -25,7 +25,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" className={`${codePro.className}`}>
+        <html lang="en" className={`${codePro.className}`} suppressHydrationWarning>
             <body>
                 <ThemeProvider
                     attribute="class"

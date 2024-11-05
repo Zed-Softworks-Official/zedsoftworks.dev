@@ -9,11 +9,51 @@ import { Button } from '~/components/ui/button'
 import SponsorIcon, { type Sponsor } from '~/components/sponsors'
 import ParticlesBackground from '~/components/particles'
 
-const get_sponsors = unstable_cache(
-    async () => {
-        const sponsors: Sponsor[] = []
+import { env } from '~/env'
+import { Octokit } from '@octokit/rest'
 
-        return sponsors
+const get_sponsors_cache = unstable_cache(
+    async () => {
+        const octokit = new Octokit({
+            auth: env.GITHUB_ACCESS_TOKEN
+        })
+
+        const response = await octokit.graphql<{
+            organization: {
+                sponsors: {
+                    nodes: Array<{
+                        login: string
+                        avatarUrl: string
+                    }>
+                }
+            }
+        }>(
+            `query($org: String!) {
+                          organization(login: $org) {
+                            sponsors(first: 10) {
+                              nodes {
+                                ... on User {
+                                  login
+                                  avatarUrl
+                                }
+                              }
+                            }
+                          }
+                        }
+                          `,
+            {
+                org: env.GITHUB_ORG_NAME
+            }
+        )
+
+        const result: Sponsor[] = response.organization.sponsors.nodes.map(
+            (sponsor: { login: string; avatarUrl: string }) => ({
+                username: sponsor.login,
+                avatar_url: sponsor.avatarUrl
+            })
+        )
+
+        return result
     },
     ['sponsors'],
     {
@@ -76,14 +116,14 @@ export default function HomePage() {
 }
 
 async function SponsorsSection() {
-    const sponsors = await get_sponsors()
+    const sponsors = await get_sponsors_cache()
 
     return (
         <section id="sponsors" className="bg-white px-4 py-20 dark:bg-black">
             <h2 className="mb-12 text-center text-3xl font-bold">Our Sponsors</h2>
             <div className="flex flex-wrap justify-center gap-6">
                 {sponsors.map((sponsor, index) => (
-                    <SponsorIcon key={sponsor.name} sponsor={sponsor} index={index} />
+                    <SponsorIcon key={sponsor.username} sponsor={sponsor} index={index} />
                 ))}
             </div>
             <div className="mt-12 text-center">
