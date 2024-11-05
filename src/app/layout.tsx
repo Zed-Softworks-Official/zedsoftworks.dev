@@ -2,6 +2,7 @@ import '~/styles/globals.css'
 import { ThemeProvider } from 'next-themes'
 
 import localFont from 'next/font/local'
+import type { Metadata } from 'next'
 
 const codePro = localFont({
     src: [
@@ -20,8 +21,20 @@ export const metadata = {
     title: 'Zed Softworks',
     description:
         'Zed Softworks is a software development company that specializes in web development and cloud services.',
-    icons: [{ rel: 'icon', url: '/favicon.ico' }]
-}
+    icons: [{ rel: 'icon', url: '/favicon.ico' }],
+    openGraph: {
+        title: 'Zed Softworks',
+        description:
+            'Zed Softworks is a software development company that specializes in web development and cloud services.',
+        images: ['/logo.svg']
+    },
+    twitter: {
+        title: 'Zed Softworks',
+        description:
+            'Zed Softworks is a software development company that specializes in web development and cloud services.',
+        images: ['/logo.svg']
+    }
+} satisfies Metadata
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (

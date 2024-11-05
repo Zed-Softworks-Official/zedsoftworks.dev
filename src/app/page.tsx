@@ -11,6 +11,7 @@ import ParticlesBackground from '~/components/particles'
 
 import { env } from '~/env'
 import { Octokit } from '@octokit/rest'
+import { GitHubLogoIcon, TwitterLogoIcon } from '@radix-ui/react-icons'
 
 const get_sponsors_cache = unstable_cache(
     async () => {
@@ -109,6 +110,22 @@ export default function HomePage() {
             <footer className="bg-gray-100 py-8 dark:bg-black">
                 <div className="container mx-auto flex flex-row justify-between px-4 text-center text-gray-600 dark:text-white/80">
                     <p>&copy; 2024 Zed Softworks LLC. All rights reserved.</p>
+                    <div className="flex items-center gap-5">
+                        <Link
+                            href={`https://github.com/Zed-Softworks-Official`}
+                            className="duration-250 text-muted-foreground transition-colors ease-in-out hover:text-foreground"
+                            target="_blank"
+                        >
+                            <GitHubLogoIcon className="size-4" />
+                        </Link>
+                        <Link
+                            href={'https://x.com/ZedSoftworks'}
+                            className="duration-250 text-muted-foreground transition-colors ease-in-out hover:text-foreground"
+                            target="_blank"
+                        >
+                            <TwitterLogoIcon className="size-4" />
+                        </Link>
+                    </div>
                 </div>
             </footer>
         </div>
