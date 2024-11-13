@@ -3,7 +3,7 @@
 import Link from 'next/link'
 
 import { motion } from 'framer-motion'
-import { Palette, ExternalLink } from 'lucide-react'
+import { Palette, ExternalLink, ImageIcon } from 'lucide-react'
 import {
     Card,
     CardHeader,
@@ -15,12 +15,18 @@ import { Button } from '~/components/ui/button'
 
 export default function Projects() {
     return (
-        <div className="container mx-auto flex items-center justify-center">
+        <div className="container mx-auto grid grid-cols-1 gap-4 md:grid-cols-2">
             <ProjectCard
                 title="Nemu"
                 icon={<Palette className="h-10 w-10 text-gray-900 dark:text-white" />}
                 url="https://nemu.art"
                 description="A commission-based SaaS marketplace connecting artists with clients, streamlining the creative process."
+            />
+            <ProjectCard
+                title="QuickPull"
+                icon={<ImageIcon className="h-10 w-10 text-gray-900 dark:text-white" />}
+                url="https://quickpull.io"
+                description="QuickPull makes it easy to download collections of images. Save time and streamline your workflow."
             />
         </div>
     )
