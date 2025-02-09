@@ -77,7 +77,7 @@ export default function HomePage() {
                         <h1 className="text-4xl font-bold">Zed Softworks</h1>
                     </div>
                     <p className="mb-8 text-xl text-gray-600 dark:text-white/80">
-                        Innovating Software Solutions for Creators and Developers
+                        Innovating Software Solutions for Creators
                     </p>
                     <Button variant={'default'} asChild>
                         <Link href="#products">
