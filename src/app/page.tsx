@@ -65,7 +65,7 @@ const get_sponsors_cache = unstable_cache(
 export default function HomePage() {
     return (
         <div className="flex min-h-screen flex-col text-gray-900  dark:text-white">
-            <main className="flex-grow">
+            <main className="grow">
                 <section className="container relative mx-auto flex h-full min-h-screen flex-col items-center justify-center px-4 py-20 text-center">
                     <div className="mb-8 flex flex-col items-center justify-center gap-10">
                         <Image
@@ -105,11 +105,13 @@ export default function HomePage() {
                     <SponsorsSection />
                 </Suspense>
             </main>
-            {/* <ParticlesBackground /> */}
+            <div className="absolute -z-10">
+                <ParticlesBackground />
+            </div>
 
             <footer className="bg-gray-100 py-8 dark:bg-black">
                 <div className="container mx-auto flex flex-row justify-between px-4 text-center text-gray-600 dark:text-white/80">
-                    <p>&copy; 2024 Zed Softworks LLC. All rights reserved.</p>
+                    <p>&copy; 2025 Zed Softworks LLC. All rights reserved.</p>
                     <div className="flex items-center gap-5">
                         <Link
                             href={`https://github.com/Zed-Softworks-Official`}
