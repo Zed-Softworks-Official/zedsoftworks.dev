@@ -105,7 +105,7 @@ export default function HomePage() {
                     <SponsorsSection />
                 </Suspense>
             </main>
-            <ParticlesBackground />
+            {/* <ParticlesBackground /> */}
 
             <footer className="bg-gray-100 py-8 dark:bg-black">
                 <div className="container mx-auto flex flex-row justify-between px-4 text-center text-gray-600 dark:text-white/80">

@@ -3,7 +3,7 @@
 import Link from 'next/link'
 
 import { motion } from 'framer-motion'
-import { Palette, ExternalLink, ImageIcon } from 'lucide-react'
+import { ExternalLink, AudioLines } from 'lucide-react'
 import {
     Card,
     CardHeader,
@@ -17,16 +17,10 @@ export default function Projects() {
     return (
         <div className="container mx-auto grid grid-cols-1 gap-4 md:grid-cols-2">
             <ProjectCard
-                title="Nemu"
-                icon={<Palette className="h-10 w-10 text-gray-900 dark:text-white" />}
-                url="https://nemu.art"
-                description="A commission-based SaaS marketplace connecting artists with clients, streamlining the creative process."
-            />
-            <ProjectCard
-                title="QuickPull"
-                icon={<ImageIcon className="h-10 w-10 text-gray-900 dark:text-white" />}
-                url="https://quickpull.io"
-                description="QuickPull makes it easy to download collections of images. Save time and streamline your workflow."
+                title="Capgen"
+                icon={<AudioLines className="h-10 w-10 text-gray-900 dark:text-white" />}
+                url="https://capgen.io"
+                description="AI-powered caption generator"
             />
         </div>
     )
