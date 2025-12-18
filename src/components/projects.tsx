@@ -17,10 +17,10 @@ export default function Projects() {
     return (
         <div className="container mx-auto grid grid-cols-1 gap-4 md:grid-cols-2">
             <ProjectCard
-                title="Capgen"
+                title="Amplitude"
                 icon={<AudioLines className="h-10 w-10 text-gray-900 dark:text-white" />}
-                url="https://capgen.io"
-                description="AI-powered caption generator"
+                url="https://github.com/Zed-Softworks-Official/amplitude"
+                description="Open-source audio mixer for linux using pipewire"
             />
         </div>
     )
@@ -54,7 +54,7 @@ function ProjectCard(props: {
                                 target="_blank"
                                 className="flex flex-row items-center justify-center gap-2"
                             >
-                                <ExternalLink className="h-5 w-5 " />
+                                <ExternalLink className="h-5 w-5" />
                                 Check it out
                             </Link>
                         </Button>

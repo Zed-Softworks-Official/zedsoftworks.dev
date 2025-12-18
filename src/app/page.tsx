@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Suspense } from 'react'
+import { Suspense, useMemo } from 'react'
 import { ArrowRight, ChevronDown, Heart } from 'lucide-react'
 import { unstable_cache } from 'next/cache'
 
@@ -63,10 +63,11 @@ const get_sponsors_cache = unstable_cache(
 )
 
 export default function HomePage() {
+    const currentYear = useMemo(() => new Date().getFullYear(), [])
     return (
-        <div className="flex min-h-screen flex-col text-gray-900  dark:text-white">
+        <div className="flex min-h-screen flex-col text-gray-900 dark:text-white">
             <main className="grow">
-                <section className="container relative mx-auto flex h-full min-h-screen flex-col items-center justify-center px-4 py-20 text-center">
+                <section className="relative container mx-auto flex h-full min-h-screen flex-col items-center justify-center px-4 py-20 text-center">
                     <div className="mb-8 flex flex-col items-center justify-center gap-10">
                         <Image
                             src="/logo.svg"
@@ -111,18 +112,18 @@ export default function HomePage() {
 
             <footer className="bg-gray-100 py-8 dark:bg-black">
                 <div className="container mx-auto flex flex-row justify-between px-4 text-center text-gray-600 dark:text-white/80">
-                    <p>&copy; 2025 Zed Softworks LLC. All rights reserved.</p>
+                    <p>&copy; {currentYear} Zed Softworks LLC. All rights reserved.</p>
                     <div className="flex items-center gap-5">
                         <Link
                             href={`https://github.com/Zed-Softworks-Official`}
-                            className="duration-250 text-muted-foreground transition-colors ease-in-out hover:text-foreground"
+                            className="text-muted-foreground hover:text-foreground transition-colors duration-250 ease-in-out"
                             target="_blank"
                         >
                             <GitHubLogoIcon className="size-4" />
                         </Link>
                         <Link
                             href={'https://x.com/ZedSoftworks'}
-                            className="duration-250 text-muted-foreground transition-colors ease-in-out hover:text-foreground"
+                            className="text-muted-foreground hover:text-foreground transition-colors duration-250 ease-in-out"
                             target="_blank"
                         >
                             <TwitterLogoIcon className="size-4" />
