@@ -3,7 +3,7 @@
 import Link from 'next/link'
 
 import { motion } from 'framer-motion'
-import { ExternalLink, AudioLines } from 'lucide-react'
+import { ExternalLink, AudioLines, BotOff } from 'lucide-react'
 import {
     Card,
     CardHeader,
@@ -21,6 +21,12 @@ export default function Projects() {
                 icon={<AudioLines className="h-10 w-10 text-gray-900 dark:text-white" />}
                 url="https://github.com/Zed-Softworks-Official/amplitude"
                 description="Open-source audio mixer for linux using pipewire"
+            />
+            <ProjectCard
+                title="RBBP"
+                icon={<BotOff className="h-10 w-10 text-gray-900 dark:text-white" />}
+                url="https://rbbp-docs.vercel.app/"
+                description="Role-based bot protection for discord"
             />
         </div>
     )
