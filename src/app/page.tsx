@@ -1,163 +1,58 @@
-import Image from 'next/image'
 import Link from 'next/link'
-import { Suspense, useMemo } from 'react'
-import { ArrowRight, ChevronDown, Heart } from 'lucide-react'
-import { unstable_cache } from 'next/cache'
 
-import Projects from '~/components/projects'
-import { Button } from '~/components/ui/button'
-import SponsorIcon, { type Sponsor } from '~/components/sponsors'
-import ParticlesBackground from '~/components/particles'
+import { LatestPost } from '~/app/_components/post'
+import { api, HydrateClient } from '~/trpc/server'
 
-import { env } from '~/env'
-import { Octokit } from '@octokit/rest'
-import { GitHubLogoIcon, TwitterLogoIcon } from '@radix-ui/react-icons'
+export default async function Home() {
+    const hello = await api.post.hello({ text: 'from tRPC' })
 
-const get_sponsors_cache = unstable_cache(
-    async () => {
-        const octokit = new Octokit({
-            auth: env.GITHUB_ACCESS_TOKEN
-        })
+    void api.post.getLatest.prefetch()
 
-        const response = await octokit.graphql<{
-            organization: {
-                sponsors: {
-                    nodes: Array<{
-                        login: string
-                        avatarUrl: string
-                    }>
-                }
-            }
-        }>(
-            `query($org: String!) {
-                          organization(login: $org) {
-                            sponsors(first: 10) {
-                              nodes {
-                                ... on User {
-                                  login
-                                  avatarUrl
-                                }
-                              }
-                            }
-                          }
-                        }
-                          `,
-            {
-                org: env.GITHUB_ORG_NAME
-            }
-        )
-
-        const result: Sponsor[] = response.organization.sponsors.nodes.map(
-            (sponsor: { login: string; avatarUrl: string }) => ({
-                username: sponsor.login,
-                avatar_url: sponsor.avatarUrl
-            })
-        )
-
-        return result
-    },
-    ['sponsors'],
-    {
-        revalidate: 3600
-    }
-)
-
-export default function HomePage() {
-    const currentYear = useMemo(() => new Date().getFullYear(), [])
     return (
-        <div className="flex min-h-screen flex-col text-gray-900 dark:text-white">
-            <main className="grow">
-                <section className="relative container mx-auto flex h-full min-h-screen flex-col items-center justify-center px-4 py-20 text-center">
-                    <div className="mb-8 flex flex-col items-center justify-center gap-10">
-                        <Image
-                            src="/logo.svg"
-                            alt="Zed Softworks Logo"
-                            width={200}
-                            height={200}
-                        />
-                        <h1 className="text-4xl font-bold">Zed Softworks</h1>
-                    </div>
-                    <p className="mb-8 text-xl text-gray-600 dark:text-white/80">
-                        Innovating Software Solutions for Creators
-                    </p>
-                    <Button variant={'default'} asChild>
-                        <Link href="#products">
-                            Explore Our Products
-                            <ArrowRight className="ml-2 h-5 w-5" />
-                        </Link>
-                    </Button>
-                    <div className="absolute bottom-10">
-                        <ChevronDown className="h-10 w-10 animate-bounce text-white/80" />
-                    </div>
-                </section>
-
-                <section id="products" className="bg-white px-4 py-20 dark:bg-black">
-                    <h2 className="mb-12 text-center text-3xl font-bold">Our Products</h2>
-                    <Projects />
-                </section>
-
-                <Suspense
-                    fallback={
-                        <div className="container mx-auto px-4 py-20 text-center">
-                            Loading...
-                        </div>
-                    }
-                >
-                    <SponsorsSection />
-                </Suspense>
-            </main>
-            <div className="absolute -z-10">
-                <ParticlesBackground />
-            </div>
-
-            <footer className="bg-gray-100 py-8 dark:bg-black">
-                <div className="container mx-auto flex flex-row justify-between px-4 text-center text-gray-600 dark:text-white/80">
-                    <p>&copy; {currentYear} Zed Softworks LLC. All rights reserved.</p>
-                    <div className="flex items-center gap-5">
+        <HydrateClient>
+            <main className="flex min-h-screen flex-col items-center justify-center bg-linear-to-b from-[#2e026d] to-[#15162c] text-white">
+                <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
+                    <h1 className="font-extrabold text-5xl tracking-tight sm:text-[5rem]">
+                        Create{' '}
+                        <span className="text-[hsl(280,100%,70%)]">T3</span> App
+                    </h1>
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
                         <Link
-                            href={`https://github.com/Zed-Softworks-Official`}
-                            className="text-muted-foreground hover:text-foreground transition-colors duration-250 ease-in-out"
+                            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
+                            href="https://create.t3.gg/en/usage/first-steps"
                             target="_blank"
                         >
-                            <GitHubLogoIcon className="size-4" />
+                            <h3 className="font-bold text-2xl">
+                                First Steps →
+                            </h3>
+                            <div className="text-lg">
+                                Just the basics - Everything you need to know to
+                                set up your database and authentication.
+                            </div>
                         </Link>
                         <Link
-                            href={'https://x.com/ZedSoftworks'}
-                            className="text-muted-foreground hover:text-foreground transition-colors duration-250 ease-in-out"
+                            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
+                            href="https://create.t3.gg/en/introduction"
                             target="_blank"
                         >
-                            <TwitterLogoIcon className="size-4" />
+                            <h3 className="font-bold text-2xl">
+                                Documentation →
+                            </h3>
+                            <div className="text-lg">
+                                Learn more about Create T3 App, the libraries it
+                                uses, and how to deploy it.
+                            </div>
                         </Link>
                     </div>
+                    <div className="flex flex-col items-center gap-2">
+                        <p className="text-2xl text-white">
+                            {hello ? hello.greeting : 'Loading tRPC query...'}
+                        </p>
+                    </div>
+
+                    <LatestPost />
                 </div>
-            </footer>
-        </div>
-    )
-}
-
-async function SponsorsSection() {
-    const sponsors = await get_sponsors_cache()
-
-    return (
-        <section id="sponsors" className="bg-white px-4 py-20 dark:bg-black">
-            <h2 className="mb-12 text-center text-3xl font-bold">Our Sponsors</h2>
-            <div className="flex flex-wrap justify-center gap-6">
-                {sponsors.map((sponsor, index) => (
-                    <SponsorIcon key={sponsor.username} sponsor={sponsor} index={index} />
-                ))}
-            </div>
-            <div className="mt-12 text-center">
-                <Button variant={'default'} size={'lg'}>
-                    <Link
-                        className="flex flex-row items-center justify-center"
-                        href="https://github.com/sponsors/Zed-Softworks-Official"
-                        target="_blank"
-                    >
-                        <Heart className="mr-2 h-5 w-5" />
-                        Become a Sponsor
-                    </Link>
-                </Button>
-            </div>
-        </section>
+            </main>
+        </HydrateClient>
     )
 }

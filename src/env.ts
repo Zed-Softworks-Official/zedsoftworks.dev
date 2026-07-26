@@ -8,8 +8,6 @@ export const env = createEnv({
      */
     server: {
         NODE_ENV: z.enum(['development', 'test', 'production']),
-        GITHUB_ORG_NAME: z.string(),
-        GITHUB_ACCESS_TOKEN: z.string()
     },
 
     /**
@@ -27,9 +25,6 @@ export const env = createEnv({
      */
     runtimeEnv: {
         NODE_ENV: process.env.NODE_ENV,
-        GITHUB_ORG_NAME: process.env.GITHUB_ORG_NAME,
-        GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN
-
         // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
     },
     /**
@@ -41,5 +36,5 @@ export const env = createEnv({
      * Makes it so that empty strings are treated as undefined. `SOME_VAR: z.string()` and
      * `SOME_VAR=''` will throw an error.
      */
-    emptyStringAsUndefined: true
+    emptyStringAsUndefined: true,
 })
