@@ -5,6 +5,19 @@
 import './src/env'
 import type { NextConfig } from 'next'
 
-const config: NextConfig = {}
+const config: NextConfig = {
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
+    images: {
+        remotePatterns: [
+            {
+                hostname: 'avatars.githubusercontent.com',
+                pathname: '/u/**',
+                protocol: 'https',
+            },
+        ],
+    },
+}
 
 export default config

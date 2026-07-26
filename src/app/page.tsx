@@ -1,58 +1,194 @@
+import { ArrowDown, ArrowUpRight, Code2 } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
+import { Suspense } from 'react'
 
-import { LatestPost } from '~/app/_components/post'
-import { api, HydrateClient } from '~/trpc/server'
+import { Reveal, TechField } from '~/app/_components/motion'
+import { Projects } from '~/app/_components/projects'
+import { Sponsors } from '~/app/_components/sponsors'
+import { Button } from '~/components/ui/button'
+import { Skeleton } from '~/components/ui/skeleton'
 
-export default async function Home() {
-    const hello = await api.post.hello({ text: 'from tRPC' })
+const githubUrl = 'https://github.com/Zed-Softworks-Official'
 
-    void api.post.getLatest.prefetch()
-
+export default function Home() {
     return (
-        <HydrateClient>
-            <main className="flex min-h-screen flex-col items-center justify-center bg-linear-to-b from-[#2e026d] to-[#15162c] text-white">
-                <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-                    <h1 className="font-extrabold text-5xl tracking-tight sm:text-[5rem]">
-                        Create{' '}
-                        <span className="text-[hsl(280,100%,70%)]">T3</span> App
-                    </h1>
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
+        <div className="min-h-screen overflow-hidden bg-background text-foreground">
+            <header className="absolute inset-x-0 top-0 z-20">
+                <div className="site-shell flex h-20 items-center justify-between border-border border-x border-b px-5 sm:px-8">
+                    <Link
+                        aria-label="Zed Softworks home"
+                        className="flex items-center gap-3"
+                        href="/"
+                    >
+                        <Image
+                            alt=""
+                            className="size-7"
+                            height={28}
+                            priority
+                            src="/logo.svg"
+                            width={28}
+                        />
+                        <span className="text-[0.68rem] tracking-[0.18em]">
+                            ZED / SOFTWORKS
+                        </span>
+                    </Link>
+                    <nav
+                        aria-label="Primary navigation"
+                        className="flex items-center gap-5 sm:gap-8"
+                    >
                         <Link
-                            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-                            href="https://create.t3.gg/en/usage/first-steps"
-                            target="_blank"
+                            className="nav-link hidden sm:inline-flex"
+                            href="#projects"
                         >
-                            <h3 className="font-bold text-2xl">
-                                First Steps →
-                            </h3>
-                            <div className="text-lg">
-                                Just the basics - Everything you need to know to
-                                set up your database and authentication.
-                            </div>
+                            Projects
                         </Link>
                         <Link
-                            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-                            href="https://create.t3.gg/en/introduction"
+                            className="nav-link hidden sm:inline-flex"
+                            href="#sponsors"
+                        >
+                            Sponsors
+                        </Link>
+                        <Link
+                            aria-label="Zed Softworks on GitHub"
+                            className="text-muted-foreground transition-colors hover:text-foreground"
+                            href={githubUrl}
                             target="_blank"
                         >
-                            <h3 className="font-bold text-2xl">
-                                Documentation →
-                            </h3>
-                            <div className="text-lg">
-                                Learn more about Create T3 App, the libraries it
-                                uses, and how to deploy it.
-                            </div>
+                            <Code2 className="size-4" />
                         </Link>
+                    </nav>
+                </div>
+            </header>
+
+            <main>
+                <section className="relative min-h-192 border-border border-b sm:min-h-screen">
+                    <TechField />
+                    <div className="site-shell relative z-10 flex min-h-192 flex-col border-border border-x pt-20 sm:min-h-screen">
+                        <div className="flex flex-1 items-center px-5 py-24 sm:px-8 lg:px-12">
+                            <div className="max-w-4xl">
+                                <Reveal>
+                                    <p className="section-kicker">
+                                        01 / INDEPENDENT SOFTWARE STUDIO
+                                    </p>
+                                    <h1 className="mt-8 text-balance font-medium text-[clamp(3.4rem,9vw,8.4rem)] leading-[0.83] tracking-[-0.085em]">
+                                        Building tools
+                                        <br />
+                                        <span className="text-muted-foreground">
+                                            that stay yours.
+                                        </span>
+                                    </h1>
+                                </Reveal>
+                                <Reveal delay={0.12}>
+                                    <div className="mt-10 grid max-w-3xl gap-8 border-border border-t pt-7 sm:grid-cols-[1fr_auto] sm:items-end">
+                                        <p className="max-w-xl text-pretty text-muted-foreground text-sm leading-7">
+                                            Zed Softworks creates focused,
+                                            open-source software for the systems
+                                            you live with. Transparent by
+                                            design. Built to be controlled,
+                                            understood, and improved.
+                                        </p>
+                                        <div className="flex flex-wrap gap-3">
+                                            <Button asChild size="lg">
+                                                <Link href="#projects">
+                                                    Explore projects
+                                                    <ArrowDown data-icon="inline-end" />
+                                                </Link>
+                                            </Button>
+                                            <Button
+                                                asChild
+                                                size="lg"
+                                                variant="outline"
+                                            >
+                                                <Link
+                                                    href={githubUrl}
+                                                    target="_blank"
+                                                >
+                                                    GitHub
+                                                    <ArrowUpRight data-icon="inline-end" />
+                                                </Link>
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </Reveal>
+                            </div>
+                        </div>
+                        <div className="grid h-16 grid-cols-2 border-border border-t text-[0.6rem] text-muted-foreground tracking-[0.16em] sm:grid-cols-4">
+                            <div className="flex items-center px-5 sm:px-8">
+                                BASE / USA
+                            </div>
+                            <div className="flex items-center border-border border-l px-5 sm:px-8">
+                                FOCUS / OPEN SOURCE
+                            </div>
+                            <div className="hidden items-center border-border border-l px-8 sm:flex">
+                                STATUS / BUILDING
+                            </div>
+                            <div className="hidden items-center justify-end border-border border-l px-8 sm:flex">
+                                EST. 2023
+                            </div>
+                        </div>
                     </div>
-                    <div className="flex flex-col items-center gap-2">
-                        <p className="text-2xl text-white">
-                            {hello ? hello.greeting : 'Loading tRPC query...'}
+                </section>
+
+                <Projects />
+
+                <Suspense fallback={<SponsorsSkeleton />}>
+                    <Sponsors />
+                </Suspense>
+            </main>
+
+            <footer>
+                <div className="site-shell flex flex-col gap-8 border-border border-x px-5 py-10 sm:flex-row sm:items-end sm:justify-between sm:px-8">
+                    <div>
+                        <Image
+                            alt=""
+                            className="size-8"
+                            height={32}
+                            src="/logo.svg"
+                            width={32}
+                        />
+                        <p className="mt-5 text-[0.65rem] text-muted-foreground tracking-[0.14em]">
+                            © {new Date().getFullYear()} ZED SOFTWORKS LLC
                         </p>
                     </div>
-
-                    <LatestPost />
+                    <div className="flex gap-6 text-[0.65rem] tracking-[0.14em]">
+                        <Link className="nav-link" href="#projects">
+                            PROJECTS
+                        </Link>
+                        <Link className="nav-link" href="#sponsors">
+                            SPONSORS
+                        </Link>
+                        <Link
+                            className="nav-link"
+                            href={githubUrl}
+                            target="_blank"
+                        >
+                            GITHUB
+                        </Link>
+                        <Link
+                            className="nav-link"
+                            href="https://x.com/ZedSoftworks"
+                            target="_blank"
+                        >
+                            X
+                        </Link>
+                    </div>
                 </div>
-            </main>
-        </HydrateClient>
+            </footer>
+        </div>
+    )
+}
+
+function SponsorsSkeleton() {
+    return (
+        <section className="border-border border-b">
+            <div className="site-shell grid gap-12 py-24 lg:grid-cols-2">
+                <div>
+                    <Skeleton className="h-3 w-28" />
+                    <Skeleton className="mt-7 h-28 max-w-lg" />
+                </div>
+                <Skeleton className="min-h-64" />
+            </div>
+        </section>
     )
 }

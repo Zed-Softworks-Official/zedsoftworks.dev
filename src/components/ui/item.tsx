@@ -12,7 +12,6 @@ function ItemGroup({ className, ...props }: React.ComponentProps<'div'>) {
                 className
             )}
             data-slot="item-group"
-            role="list"
             {...props}
         />
     )
