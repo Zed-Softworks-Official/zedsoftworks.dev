@@ -1,4 +1,9 @@
-import { ArrowUpRight, CircuitBoard, RadioTower } from 'lucide-react'
+import {
+    ArrowUpRight,
+    CircuitBoard,
+    RadioTower,
+    SkipForward,
+} from 'lucide-react'
 import Link from 'next/link'
 
 import { Reveal } from '~/app/_components/motion'
@@ -31,6 +36,15 @@ const projects: readonly Project[] = [
         eyebrow: 'Smart home / Open source',
         tags: ['LOCAL FIRST', 'OPEN SOURCE', 'IN DEVELOPMENT'],
         icon: RadioTower,
+    },
+    {
+        name: 'nxtbot',
+        description:
+            'An open-source bot that handles queuing on Discord and Twitch, so community game nights run smoothly and everyone gets their turn.',
+        href: 'https://nxtbot.app/',
+        eyebrow: 'Community / Open source',
+        tags: ['DISCORD', 'TWITCH', 'OPEN SOURCE'],
+        icon: SkipForward,
     },
 ]
 
